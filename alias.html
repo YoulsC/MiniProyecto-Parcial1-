@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alias y Puntos</title>
+<style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("media/jungle.avif");
+    background-size: cover;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#puntos-screen {
+    display: none;
+}
+
+#alias-info, #puntos-info, #mejor-tiempo-info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+    <div class="container" id="alias-screen">
+        <label for="alias-input">Ingresa tu alias:</label>
+        <input type="text" id="alias-input">
+        <button onclick="guardarAlias()">Guardar</button>
+    </div>
+
+    <div class="container" id="puntos-screen" style="display: none;">
+        <p id="alias-info"></p>
+        <p id="puntos-info"></p>
+        <p id="mejor-tiempo-info"></p>
+        <button onclick="volverAJugar()">Volver a jugar</button>
+        <button onclick="volver()">Regresar</button>
+    </div>
+
+    <script src="js/alias.js"></script>
+</body>
+</html>

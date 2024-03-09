@@ -1,23 +1,26 @@
 var animalitos = [
     { nombre: "Hipopótamo", imagen: "media/hipopotamo.png", sonido: "../media/sonidos/hipopotamo.mp3", sonidoNombre: "../media/sonidos/nombre_hipopotamo.mp3", habitat: "media/HipopotamoFondo.png"},
-    { nombre: "Rinoceronte", imagen: "media/rinoceronte.png", sonido: "../media/sonidos/rinoceronte.mp3", sonidoNombre: "../media/sonidos/nombre_rinoceronte.mp3"},
-    { nombre: "Elefante", imagen: "media/Elefante.png", sonido: "../media/sonidos/elefante.mp3", sonidoNombre: "../media/sonidos/nombre_elefante.mp3"},
-    { nombre: "León", imagen: "media/leon.png", sonido: "../media/sonidos/leon.mp3", sonidoNombre: "../media/sonidos/nombre_leon.mp3" },
-    { nombre: "Antílope", imagen: "media/Antilope.png", sonido: "../media/sonidos/antilope.mp3", sonidoNombre: "../media/sonidos/nombre_antilope.mp3" },
-    { nombre: "Avestruz", imagen: "media/Avestruz.png", sonido: "../media/sonidos/avestruz.mp3", sonidoNombre: "../media/sonidos/nombre_avestruz.mp3" },
-    { nombre: "Jirafa", imagen: "media/Jirafa.png", sonido: "../media/sonidos/jirafa.mp3", sonidoNombre: "../media/sonidos/nombre_jirafa.mp3" },
-    { nombre: "Tucán", imagen: "media/tucan.png", sonido: "../media/sonidos/tucan.mp3", sonidoNombre: "../media/sonidos/nombre_tucan.mp3" },
-    { nombre: "Cebra", imagen: "media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3" },
+    { nombre: "Rinoceronte", imagen: "media/rinoceronte.png", sonido: "../media/sonidos/rinoceronte.mp3", sonidoNombre: "../media/sonidos/nombre_rinoceronte.mp3", habitat: "media/RinoceronteFondo.png"},
+    { nombre: "Elefante", imagen: "media/Elefante.png", sonido: "../media/sonidos/elefante.mp3", sonidoNombre: "../media/sonidos/nombre_elefante.mp3", habitat: "media/ElefanteFondo.png"},
+    { nombre: "León", imagen: "media/leon.png", sonido: "../media/sonidos/leon.mp3", sonidoNombre: "../media/sonidos/nombre_leon.mp3", habitat: "media/LeonFondo.png"},
+    { nombre: "Antílope", imagen: "media/Antilope.png", sonido: "../media/sonidos/antilope.mp3", sonidoNombre: "../media/sonidos/nombre_antilope.mp3", habitat: "media/AntilopeFondo.png"},
+    { nombre: "Avestruz", imagen: "media/Avestruz.png", sonido: "../media/sonidos/avestruz.mp3", sonidoNombre: "../media/sonidos/nombre_avestruz.mp3", habitat: "media/AvestruzFondo.png"},
+    { nombre: "Jirafa", imagen: "media/Jirafa.png", sonido: "../media/sonidos/jirafa.mp3", sonidoNombre: "../media/sonidos/nombre_jirafa.mp3", habitat: "media/JirafaFondo.png"},
+    { nombre: "Tucán", imagen: "media/tucan.png", sonido: "../media/sonidos/tucan.mp3", sonidoNombre: "../media/sonidos/nombre_tucan.mp3", habitat: "media/TucanFondo.png"},
+    { nombre: "Cebra", imagen: "media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3", habitat: "media/CebraFondo.png"},
 ];
 
 
-    var count = 0;
-var tiempoInicio; // Variable para el tiempo de inicio global
-var puntuacion = 0; // Variable para la puntuación global
-var alias; // Variable para almacenar el alias
+var count = 0;
+var tiempoInicio; 
+var puntuacion = 0; 
+var alias; 
 
 function iniciar() {
-    tiempoInicio = Date.now(); // Establecer el tiempo de inicio al iniciar el juego
+
+    var name = document.getElementById('name');
+
+    tiempoInicio = Date.now(); 
     iniciarCronometro();
 
     var game1 = document.getElementById('game1');
@@ -38,16 +41,16 @@ function iniciar() {
     var but3 = document.getElementById('cont3');
     but3.style.display = 'none';
 
-    puntuacion = 0; // Reiniciar la puntuación
+    puntuacion = 0; 
 
-    // Obtener los datos de recompensa previamente guardados
+
     var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
     var datosRecompensa = JSON.parse(datosRecompensaJSON);
 
-    // Obtener el alias del objeto datosRecompensa
+  
     alias = datosRecompensa.alias;
 
-    // Mostrar el alias en pantalla
+   
     var aliasHTML = document.getElementById('alias');
     aliasHTML.innerHTML = `Alias: ${alias}`;
 
@@ -82,17 +85,17 @@ function iniciar() {
 
         for (var i = 0; i < 3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 1));
-            seccion.innerHTML = `<p>${array[rand1[i]].nombre}</p><canvas data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p style="display: none;">${array[rand1[i]].nombre}</p><canvas style="background: url(${array[rand1[i]].habitat});" data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" width="500" height="500"></canvas>`;
         }
 
         for (var i = 0; i < 3; i++){
             var seccion = document.getElementById('cajasoltar' + (i + 4));
-            seccion.innerHTML = `<p>${array[rand2[i]].nombre}</p><canvas data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p style="display: none;">${array[rand2[i]].nombre}</p><canvas style="background: url(${array[rand2[i]].habitat});" data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" width="500" height="500"></canvas>`;
         }
 
         for (var i = 0; i <3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 7));
-            seccion.innerHTML = `<p>${array[rand3[i]].nombre}</p><canvas data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p style="display: none;">${array[rand3[i]].nombre}</p><canvas style="background: url(${array[rand3[i]].habitat});" data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" width="500" height="500"></canvas>`;
         }
 
 
@@ -226,14 +229,26 @@ function iniciar() {
         var ctx = canvasDestino.getContext('2d');
         ctx.drawImage(elemento, offsetX, offsetY);
 
-        // Encontrar el objeto animal correspondiente en el array animalitos
+
         var animal = animalitos.find(a => a.nombre === nombreAnimal);
 
-        // Reproducir el sonido del animal
         var sonidoAnimal = new Audio(animal.sonido);
         sonidoAnimal.play();
 
-        puntuacion += 10; // o -= 5 si es incorrecto
+        var sonidoNombreAnimal = new Audio(animal.sonidoNombre);
+
+        setTimeout(function() {
+            sonidoNombreAnimal.play();
+        }, 2000);
+
+        var parrafoAnterior = canvasDestino.previousElementSibling;
+
+
+        if (parrafoAnterior && parrafoAnterior.nodeName === 'P') {
+            parrafoAnterior.style.display = 'block';
+        }
+
+        puntuacion += 10; 
         var puntuacionHTML = document.getElementById('puntuacion');
         puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
 
@@ -263,7 +278,7 @@ function iniciar() {
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // intercambio de elementos
+            [array[i], array[j]] = [array[j], array[i]]; 
         }
     }
 
@@ -298,53 +313,53 @@ function iniciar() {
     }
     
     function gameover3() {
-        // Aquí puedes agregar el código necesario para cuando se termine el juego
-        detenerCronometro(); // Detener el cronómetro
+        
+        detenerCronometro();
 
-        // Obtener el tiempo transcurrido
+        
         var tiempoTranscurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
-        // Obtener los datos de recompensa previamente guardados
+        
     var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
     var datosRecompensa = JSON.parse(datosRecompensaJSON);
 
-    // Obtener el alias del objeto datosRecompensa
+    
     var alias = datosRecompensa.alias;
 
 
         var mejorTiempo = tiempoTranscurrido;
         var puntos = puntuacion;
 
-        // Llamamos a la función para guardar los datos
+       
         guardarDatosRecompensa(alias, mejorTiempo, puntos);
     }
 
     function guardarDatosRecompensa(alias, mejorTiempo, puntos) {
         console.log("Guardando datos de recompensa...");
     
-        // Recuperar los datos previos del alias del almacenamiento local
+        
         var datosPreviosAliasJSON = localStorage.getItem(alias);
     
         if (datosPreviosAliasJSON) {
             console.log("Datos previos encontrados para el alias " + alias);
     
-            // Convertir el valor JSON en un objeto
+            
             var datosPreviosAlias = JSON.parse(datosPreviosAliasJSON);
     
-            // Comprobar si la puntuación actual es mayor que la puntuación previa o si el mejorTiempo actual es menor que el mejorTiempo previo
+            
             if (puntos > datosPreviosAlias.puntos || (puntos === datosPreviosAlias.puntos && mejorTiempo < datosPreviosAlias.mejorTiempo)) {
                 console.log("La puntuación actual es mejor que la puntuación previa o el mejorTiempo previo es menor. Actualizando datos del alias " + alias + "...");
     
-                // Actualizar los datos previos del alias
+                
                 var datosAlias = {
                     alias: alias,
                     puntos: puntos,
                     mejorTiempo: mejorTiempo
                 };
     
-                // Convertir el objeto a JSON
+                
                 var datosAliasJSON = JSON.stringify(datosAlias);
     
-                // Guardar los nuevos datos en el almacenamiento local
+                
                 localStorage.setItem(alias, datosAliasJSON);
             } else {
                 console.log("La puntuación actual no supera a la puntuación previa o el mejorTiempo previo no es menor. No se realizarán cambios en los datos del alias " + alias + ".");
@@ -352,62 +367,62 @@ function iniciar() {
         } else {
             console.log("No se encontraron datos previos para el alias " + alias + ". Guardando nuevos datos...");
     
-            // Si no hay datos previos para este alias, guardar los nuevos datos
+            
             var datosAliasNuevo = {
                 alias: alias,
                 puntos: puntos,
                 mejorTiempo: mejorTiempo
             };
     
-            // Convertir el objeto a JSON
+            
             var datosAliasNuevoJSON = JSON.stringify(datosAliasNuevo);
     
-            // Guardar los nuevos datos en el almacenamiento local
+            
             localStorage.setItem(alias, datosAliasNuevoJSON);
         }
     
-        // Recuperar los datos previos de la llave "datosRecompensa" del almacenamiento local
+        
         var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
     
         if (datosRecompensaJSON) {
             console.log("Datos previos encontrados para la llave 'datosRecompensa'");
     
-            // Convertir el valor JSON en un objeto
+           
             var datosRecompensaPrevios = JSON.parse(datosRecompensaJSON);
     
-            // Comprobar si la puntuación actual es mayor que la puntuación previa o si el mejorTiempo actual es menor que el mejorTiempo previo
+            
             if (puntos > datosRecompensaPrevios.puntos || (puntos === datosRecompensaPrevios.puntos && mejorTiempo < datosRecompensaPrevios.mejorTiempo)) {
                 console.log("La puntuación actual es mejor que la puntuación previa o el mejorTiempo previo es menor. Actualizando datos de 'datosRecompensa'...");
     
-                // Actualizar los datos previos de 'datosRecompensa' con los nuevos datos del jugador
+                
                 var datosRecompensaNuevos = {
-                    alias: alias, // Usa el mismo alias del jugador
+                    alias: alias, 
                     puntos: puntos,
                     mejorTiempo: mejorTiempo
                 };
     
-                // Convertir el objeto a JSON
+                
                 var datosRecompensaNuevosJSON = JSON.stringify(datosRecompensaNuevos);
     
-                // Guardar los nuevos datos en el almacenamiento local
-                localStorage.setItem('datosRecompensa', datosRecompensaNuevosJSON); // Usa la llave 'datosRecompensa' para guardar los datos
+                
+                localStorage.setItem('datosRecompensa', datosRecompensaNuevosJSON); 
             } else {
                 console.log("La puntuación actual no supera a la puntuación previa o el mejorTiempo previo no es menor. No se realizarán cambios en los datos de 'datosRecompensa'.");
             }
         } else {
             console.log("No se encontraron datos previos para la llave 'datosRecompensa'. Guardando nuevos datos...");
     
-            // Si no hay datos previos para esta llave, guardar los nuevos datos
+            
             var datosRecompensaNuevo = {
                 alias: alias,
                 puntos: puntos,
                 mejorTiempo: mejorTiempo
             };
     
-            // Convertir el objeto a JSON
+           
             var datosRecompensaNuevoJSON = JSON.stringify(datosRecompensaNuevo);
     
-            // Guardar los nuevos datos en el almacenamiento local
+            
             localStorage.setItem('datosRecompensa', datosRecompensaNuevoJSON);
         }
     

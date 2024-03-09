@@ -3,12 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Animales</title>
-    <link rel="stylesheet" href="./css/mainStyle.css">
+    <title>Jungle Mania</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
 
+<style>
+    body {
+        background-image: url(./media/BackGround.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Lilita One", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+
+    .background .Lights img {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .background .Lights #Light1 {
+        width: 100%;
+        margin-left: 2%;
+        animation: fallAnimation 5s infinite;
+    }
+
+    .background .Lights #Light3 {
+        width: 100%;
+        margin-left: 4%;
+        animation: fallAnimation 6s infinite;
+    }
+
+    @keyframes fallAnimation {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        50% {
+            opacity: 0;
+            transform: translateY(10%);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeAnimation {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+
+    .background .Lights #Light2 {
+        width: 100%;
+        margin-left: -2%;
+        animation: fadeAnimation 2s infinite;
+    }
+
+    .background #Title {
+
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .background #Title #logo {
+        width: 120%;
+        z-index: 2;
+       
+    }
+    .background #Title #options {
+        position: absolute;
+        top: 80%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+    #opt{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        top: 120%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+    }
+
+    #opt a{
+        text-decoration: none;
+        color: transparent;
+        font-size: 400%;
+        
+    }
+    
+    #imageButton {
+      position: fixed;
+      top: 10px;
+      left: 0px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      z-index: 1;
+    }
+
+    #imageButton img {
+        cursor: pointer;
+      width: 30%;
+      height: auto;
+      
+    }
+
+</style>
+
 <body>
+
+    <button id="imageButton" onclick="changeImage()">
+        <img id="buttonImage" src="./media/mute.png" alt="Botón">
+      </button>
+
+    <div class="background">
+
+       
+
+        <div class="Lights">
+            <img id="Light1" src="./media/LightPoints1.png" alt="">
+            <img id="Light2" src="./media/Light1.png" alt="">
+            <img id="Light3" src="./media/LightPoints2.png" alt="">
+
+        </div>
+
+        <div class="animate__animated animate__zoomIn animate__delay-1s " style="margin-top:20%; position: relative;">
+        <div id="Title"  >
+            <img id="logo"  class="animate__animated animate__bounce animate__delay-2s "  src="./media/Logo.png" alt="">
+            <img id="options"  class="animate__animated  animate__swing animate__delay-1s "  src="./media/OptionsDefaults.png" alt="">
+            <div id="opt">
+                <a href="..." onmouseover="opt(1)" onmouseout="resetOpt()" >Jugar</a>
+                <a href="..." onmouseover="opt(2)" onmouseout="resetOpt()" >Leaderboard</a>
+                <a href="..." onmouseover="opt(3)" onmouseout="resetOpt()" >About</a>
+
+                
+            </div>
+        </div>
+       </div>
+
+
+    </div>
+<script>
+opt = (n) => {
     
+    switch(n){
+        case 1:
+        document.getElementById('options').src = './media/Options1.png';
+            break;
+        case 2:
+        document.getElementById('options').src = './media/Options2.png';
+            break;
+        case 3:
+        document.getElementById('options').src = './media/Options3.png';
+            break;
+    }
+}
+
+resetOpt = () => {
+        document.getElementById('options').src = './media/OptionsDefaults.png';
+    }
+
+    var isImage1 = true;
+
+  function changeImage() {
+    var buttonImage = document.getElementById('buttonImage');
     
+    if (isImage1) {
+      buttonImage.src = './media/Unmute.png';
+    } else {
+      buttonImage.src = './media/mute.png'; 
+    }
+
+    isImage1 = !isImage1; 
+  }
+</script>
 </body>
+
 </html>

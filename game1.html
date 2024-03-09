@@ -6,7 +6,7 @@
 <title>Juego de Arrastrar y Soltar</title>
 <link rel="stylesheet" href="css/game1.css">
 <style>
-  #cajasoltar1,#cajasoltar2,#cajasoltar3{
+  #cajasoltar1,#cajasoltar2,#cajasoltar3, #cajasoltar4, #cajasoltar5, #cajasoltar6, #cajasoltar7, #cajasoltar8, #cajasoltar9{
     float: left;
     width: 500px;
     height: 500px;
@@ -29,28 +29,51 @@
 </style>
 </head>
 <body>
-  <section id="cajasoltar1">
-    <!-- <canvas id="lienzo1" width="500" height="500"></canvas> -->
-   </section>
-   <section id="cajasoltar2">
-    <!-- <canvas id="lienzo2" width="500" height="500"></canvas> -->
-   </section>
-   <section id="cajasoltar3">
-    <!-- <canvas id="lienzo3" width="500" height="500"></canvas>  -->
-   </section>
 
-   <section id="cajaimagenes" >
-    <!-- <img id="imagen1" src="media/Antilope.png">
-    <img id="imagen2" src="media/Avestruz.png">
-    <img id="imagen3" src="media/monster3.gif">
-    <img id="imagen4" src="media/monster4.gif">  -->
-   </section>
 
-<!-- <div id="pantalla2" class="pantalla">
-  <h2>Pantalla 2</h2>
-  <div id="animalitos2" class="animalitos"></div>
-  <div id="casas2" class="casas"></div>
-</div> -->
+  <div id="game1">
+    <p id="puntuacion"></p>
+    <h4 id="alias"></h4>
+    <h5 id="time"></h5>
+  
+    <section id="cajasoltar1"></section>
+    <section id="cajasoltar2"></section>
+    <section id="cajasoltar3"></section>
+  
+    <section id="cajaimagenes1"></section>
+  
+    <button id="cont1" onclick="gameover1()">CONTINUAR</button>
+
+  </div>
+
+  <div id="game2">
+    <p id="puntuacion"></p>
+    <h4 id="alias"></h4>
+    <h5 id="time"></h5>
+  
+    <section id="cajasoltar4"></section>
+    <section id="cajasoltar5"></section>
+    <section id="cajasoltar6"></section>
+  
+    <section id="cajaimagenes2"></section>
+  
+    <button onclick="gameover2()"></button>
+
+  </div>
+
+    <div id="game3">
+      <p id="puntuacion"></p>
+      <h4 id="alias"></h4>
+      <h5 id="time"></h5>
+    
+      <section id="cajasoltar7"></section>
+      <section id="cajasoltar8"></section>
+      <section id="cajasoltar9"></section>
+    
+      <section id="cajaimagenes3"></section>
+    
+      <button onclick="gameover3()"></button>
+    </div>
 
 <script src="js/game1.js"></script>
 </body>

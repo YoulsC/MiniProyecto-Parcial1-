@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes</title>
+    <link rel="stylesheet" href="css/creditos.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #reporteContainer table th {
+            width: auto;
+            border-bottom: 2px solid #ddd; 
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .leaderboard-table th {
+            background-color: #4CAF50;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .leaderboard-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .leaderboard-table tbody tr:hover {
+            background-color: #e6e6e6;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Reporte de Jugadores</h1>
+        <div id="reporteContainer">
+           
+        </div>
+        <button id="regresarButton">◀ Regresar</button>
+    </div>
+    <script src="js/reportes.js"></script>
+</body>
+</html>

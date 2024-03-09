@@ -1,156 +1,106 @@
 var animalitos = [
-    { nombre: "Hipopótamo", imagen: "../media/hipopotamo.png", sonido: "../media/sonidos/hipopotamo.mp3", sonidoNombre: "../media/sonidos/nombre_hipopotamo.mp3" },
-    { nombre: "Rinoceronte", imagen: "../media/rinoceronte.png", sonido: "../media/sonidos/rinoceronte.mp3", sonidoNombre: "../media/sonidos/nombre_rinoceronte.mp3" },
-    { nombre: "Elefante", imagen: "../media/elefante.png", sonido: "../media/sonidos/elefante.mp3", sonidoNombre: "../media/sonidos/nombre_elefante.mp3" },
-    { nombre: "León", imagen: "../media/leon.png", sonido: "../media/sonidos/leon.mp3", sonidoNombre: "../media/sonidos/nombre_leon.mp3" },
-    { nombre: "Antílope", imagen: "../media/antilope.png", sonido: "../media/sonidos/antilope.mp3", sonidoNombre: "../media/sonidos/nombre_antilope.mp3" },
-    { nombre: "Avestruz", imagen: "../media/avestruz.png", sonido: "../media/sonidos/avestruz.mp3", sonidoNombre: "../media/sonidos/nombre_avestruz.mp3" },
-    { nombre: "Jirafa", imagen: "../media/jirafa.png", sonido: "../media/sonidos/jirafa.mp3", sonidoNombre: "../media/sonidos/nombre_jirafa.mp3" },
-    { nombre: "Tucán", imagen: "../media/tucan.png", sonido: "../media/sonidos/tucan.mp3", sonidoNombre: "../media/sonidos/nombre_tucan.mp3" },
-    { nombre: "Cebra", imagen: "../media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3" }
+    { nombre: "Hipopótamo", imagen: "media/hipopotamo.png", sonido: "../media/sonidos/hipopotamo.mp3", sonidoNombre: "../media/sonidos/nombre_hipopotamo.mp3", habitat: "cajasoltar1"},
+    { nombre: "Rinoceronte", imagen: "media/rinoceronte.png", sonido: "../media/sonidos/rinoceronte.mp3", sonidoNombre: "../media/sonidos/nombre_rinoceronte.mp3", habitat: "cajasoltar2"},
+    { nombre: "Elefante", imagen: "media/Elefante.png", sonido: "../media/sonidos/elefante.mp3", sonidoNombre: "../media/sonidos/nombre_elefante.mp3", habitat: "cajasoltar3"},
+    { nombre: "León", imagen: "media/leon.png", sonido: "../media/sonidos/leon.mp3", sonidoNombre: "../media/sonidos/nombre_leon.mp3", habitat: "cajasoltar4" },
+    { nombre: "Antílope", imagen: "media/Antilope.png", sonido: "../media/sonidos/antilope.mp3", sonidoNombre: "../media/sonidos/nombre_antilope.mp3", habitat: "cajasoltar5" },
+    { nombre: "Avestruz", imagen: "media/Avestruz.png", sonido: "../media/sonidos/avestruz.mp3", sonidoNombre: "../media/sonidos/nombre_avestruz.mp3", habitat: "cajasoltar6" },
+    { nombre: "Jirafa", imagen: "media/Jirafa.png", sonido: "../media/sonidos/jirafa.mp3", sonidoNombre: "../media/sonidos/nombre_jirafa.mp3", habitat: "cajasoltar7" },
+    { nombre: "Tucán", imagen: "media/tucan.png", sonido: "../media/sonidos/tucan.mp3", sonidoNombre: "../media/sonidos/nombre_tucan.mp3", habitat: "cajasoltar8" },
+    { nombre: "Cebra", imagen: "media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3", habitat: "cajasoltar9" },
     ];
 
-// Modificamos la función posicionarAnimalitosYCasas para que muestre los animales arriba y las casas abajo.
-function posicionarAnimalitosYCasas(pantalla, animalitos) {
-    var animalitosDiv = document.getElementById("animalitos" + pantalla);
-    var casasDiv = document.getElementById("casas" + pantalla);
+    function iniciar() {
+        var array = animalitos;
+        shuffleArray(array);
+        console.log(array);
 
-    // Posicionar casas
-    for (var i = 0; i < 3; i++) {
-        var casaDiv = document.createElement("div");
-        casaDiv.className = "casa";
-        casaDiv.dataset.casaIndex = i;
-        casasDiv.appendChild(casaDiv);
+        var img = document.getElementById('cajaimagenes');
+        img.innerHTML = `<img id="${array[0].nombre}" src="${array[0].imagen}" draggable="true">
+        <img id="${array[1].nombre}" src="${array[1].imagen}" draggable="true">
+        <img id="${array[2].nombre}" src="${array[2].imagen}" draggable="true">`;
+
+        var seccion = document.getElementById('cajasoltar1');
+        seccion.innerHTML = `<canvas id="lienzo1" width="500" height="500"></canvas>`;
+
+        var seccion = document.getElementById('cajasoltar2');
+        seccion.innerHTML = `<canvas id="lienzo2" width="500" height="500"></canvas>`;
+
+        var seccion = document.getElementById('cajasoltar3');
+        seccion.innerHTML = `<canvas id="lienzo3" width="500" height="500"></canvas>`;
+
+        var imagenes = document.querySelectorAll('#cajaimagenes > img');
+        for (var i = 0; i < imagenes.length; i++) {
+            imagenes[i].addEventListener('dragstart', arrastrado, false);
+            imagenes[i].addEventListener('dragend', finalizado, false);
+        }
+    
+        soltar1 = document.getElementById('lienzo1');
+        lienzo1 = soltar1.getContext('2d');
+
+        soltar2 = document.getElementById('lienzo2');
+        lienzo2 = soltar2.getContext('2d');
+
+        soltar3 = document.getElementById('lienzo3');
+        lienzo3 = soltar3.getContext('2d');
+    
+        soltar1.addEventListener('dragenter', eventoEnter, false);
+        soltar1.addEventListener('dragover', eventoOver, false);
+        soltar1.addEventListener('drop', soltado, false);
+
+        soltar2.addEventListener('dragenter', eventoEnter, false);
+        soltar2.addEventListener('dragover', eventoOver, false);
+        soltar2.addEventListener('drop', soltado, false);
+
+        soltar3.addEventListener('dragenter', eventoEnter, false);
+        soltar3.addEventListener('dragover', eventoOver, false);
+        soltar3.addEventListener('drop', soltado, false);
+    }
+    
+    function eventoEnter(e) {
+        console.log("soy el evento dragenter");
+        e.preventDefault();
+    }
+    
+    function eventoOver(e) {
+        console.log("soy el evento dragover");
+        e.preventDefault();
+    }
+    
+    function finalizado(e) {
+        elemento = e.target;
+        //elemento.style.visibility = 'hidden';
+    }
+    
+    function arrastrado(e) {
+        elemento = e.target;
+        e.dataTransfer.setData('Text', elemento.getAttribute('id'));
+        e.dataTransfer.setDragImage(e.target, 0, 0);
+    }
+    
+    function soltado(e) {
+        e.preventDefault();
+        var id = e.dataTransfer.getData('Text');
+        var elemento = document.getElementById(id);
+        var posx1 = e.pageX - soltar1.offsetLeft;
+        var posy1 = e.pageY - soltar1.offsetTop;
+
+        var posx2 = e.pageX - soltar2.offsetLeft;
+        var posy2 = e.pageY - soltar2.offsetTop;
+
+        var posx3 = e.pageX - soltar3.offsetLeft;
+        var posy3 = e.pageY - soltar3.offsetTop;
+        lienzo1.drawImage(elemento, posx1, posy1);
+        lienzo2.drawImage(elemento, posx2, posy2);
+        lienzo3.drawImage(elemento, posx3, posy3);
     }
 
-    // Posicionar animalitos
-    animalitos.forEach(function (animalito, index) {
-        var animalitoDiv = document.createElement("img");
-        animalitoDiv.src = animalito.imagen;
-        animalitoDiv.className = "animalito";
-        animalitoDiv.draggable = true;
-        animalitoDiv.dataset.nombre = animalito.nombre;
-        animalitoDiv.dataset.sonido = animalito.sonido;
-        animalitoDiv.dataset.sonidoNombre = animalito.sonidoNombre;
-        animalitosDiv.appendChild(animalitoDiv);
-    });
-}
-
-// Creamos una función para verificar si todos los animales están en sus casas
-function todosEnSusCasas(pantalla) {
-    var casas = document.querySelectorAll("#casas" + pantalla + " .casa");
-    var animalitos = document.querySelectorAll("#animalitos" + pantalla + " .animalito");
-
-    for (var i = 0; i < casas.length; i++) {
-        var casa = casas[i];
-        var animalitoEnCasa = false;
-
-        for (var j = 0; j < animalitos.length; j++) {
-            var animalito = animalitos[j];
-            if (animalito.dataset.nombre === casa.dataset.nombre) {
-                animalitoEnCasa = true;
-                break;
-            }
-        }
-
-        if (!animalitoEnCasa) {
-            return false;
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // intercambio de elementos
         }
     }
-
-    return true;
-}
-
-// Modificamos la función verificarCasaAnimalito para que reproduzca los sonidos y gestione el movimiento de los animales.
-function verificarCasaAnimalito(nombreAnimalito, casaIndex, pantalla) {
-    var animalito = document.querySelector('[data-nombre="' + nombreAnimalito + '"]');
-    var casa = document.querySelector('#casas' + pantalla + ' [data-casa-index="' + casaIndex + '"]');
-
-    if (casa.dataset.nombre === nombreAnimalito) {
-        alert("¡Correcto! El animalito ha sido colocado en su casa.");
-        var sonido = new Audio(animalito.dataset.sonido);
-        sonido.play();
-        animalito.style.display = "none"; // Ocultar el animalito después de colocarlo correctamente
-        if (todosEnSusCasas(pantalla)) {
-            alert("¡Todos los animales están en sus casas! Pasando a la siguiente pantalla.");
-            // Lógica para pasar a la siguiente pantalla
-        }
-    } else {
-        alert("Incorrecto. El animalito no pertenece a esta casa.");
-        var errorSound = new Audio("sonidos/error.mp3");
-        errorSound.play();
-    }
-}
-
-// Modificamos la función posicionarAnimalitosYCasas para mostrar los nombres de los animales en la segunda pantalla.
-function posicionarAnimalitosYCasasSegundaPantalla(pantalla, animalitos) {
-    var animalitosDiv = document.getElementById("animalitos" + pantalla);
-    var nombresDiv = document.getElementById("nombres" + pantalla);
-
-    // Posicionar nombres de animalitos
-    animalitos.forEach(function (animalito, index) {
-        var nombreDiv = document.createElement("div");
-        nombreDiv.textContent = animalito.nombre;
-        nombreDiv.className = "nombre";
-        nombresDiv.appendChild(nombreDiv);
-    });
-
-    // Posicionar animalitos
-    animalitos.forEach(function (animalito, index) {
-        var animalitoDiv = document.createElement("img");
-        animalitoDiv.src = "imágenes/" + animalito.imagen;
-        animalitoDiv.className = "animalito";
-        animalitoDiv.draggable = true;
-        animalitoDiv.dataset.nombre = animalito.nombre;
-        animalitoDiv.dataset.sonido = animalito.sonido;
-        animalitoDiv.dataset.sonidoNombre = animalito.sonidoNombre;
-        animalitosDiv.appendChild(animalitoDiv);
-    });
-}
-
-// Llamadas a las funciones para iniciar el juego en la primera pantalla
-posicionarAnimalitosYCasas(1, seleccionarAnimalitosAleatorios());
-
-// Agregar eventos de arrastrar y soltar en la primera pantalla
-document.querySelectorAll("#animalitos1 .animalito").forEach(function (animalito) {
-    animalito.addEventListener("dragstart", function (event) {
-        event.dataTransfer.setData("text/plain", animalito.dataset.nombre);
-    });
-});
-
-document.querySelectorAll("#casas1 .casa").forEach(function (casa) {
-    casa.addEventListener("dragover", function (event) {
-        event.preventDefault();
-    });
-
-    casa.addEventListener("drop", function (event) {
-        event.preventDefault();
-        var nombreAnimalito = event.dataTransfer.getData("text/plain");
-        var casaIndex = casa.dataset.casaIndex;
-        verificarCasaAnimalito(nombreAnimalito, casaIndex, 1);
-    });
-});
-
-// Llamadas a las funciones para iniciar el juego en la segunda pantalla
-posicionarAnimalitosYCasasSegundaPantalla(2, seleccionarAnimalitosAleatorios());
-
-// Agregar eventos de arrastrar y soltar en la segunda pantalla
-document.querySelectorAll("#animalitos2 .animalito").forEach(function (animalito) {
-    animalito.addEventListener("dragstart", function (event) {
-        event.dataTransfer.setData("text/plain", animalito.dataset.nombre);
-    });
-});
-
-document.querySelectorAll("#nombres2 .nombre").forEach(function (nombre) {
-    nombre.addEventListener("dragover", function (event) {
-        event.preventDefault();
-    });
-
-    nombre.addEventListener("drop", function (event) {
-        event.preventDefault();
-        var nombreAnimalito = event.dataTransfer.getData("text/plain");
-        var animalito = document.querySelector('[data-nombre="' + nombreAnimalito + '"]');
-        var sonidoNombre = new Audio(animalito.dataset.sonidoNombre);
-        sonidoNombre.play();
-    });
-});
+    
+    window.addEventListener('load', iniciar, false);
+    

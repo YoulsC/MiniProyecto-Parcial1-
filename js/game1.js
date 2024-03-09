@@ -1,10 +1,14 @@
 var animalitos = [
-    { nombre: "Animalito 1", imagen: "animalito1.png", sonido: "animalito1.mp3", sonidoNombre: "nombre1.mp3" },
-    { nombre: "Animalito 2", imagen: "animalito2.png", sonido: "animalito2.mp3", sonidoNombre: "nombre2.mp3" },
-    // Agregar información de los otros 7 animalitos
-    // ...
-    { nombre: "Animalito 9", imagen: "animalito9.png", sonido: "animalito9.mp3", sonidoNombre: "nombre9.mp3" }
-];
+    { nombre: "Hipopótamo", imagen: "hipopotamo.png", sonido: "hipopotamo.mp3", sonidoNombre: "nombre_hipopotamo.mp3" },
+    { nombre: "Rinoceronte", imagen: "rinoceronte.png", sonido: "rinoceronte.mp3", sonidoNombre: "nombre_rinoceronte.mp3" },
+    { nombre: "Elefante", imagen: "elefante.png", sonido: "elefante.mp3", sonidoNombre: "nombre_elefante.mp3" },
+    { nombre: "León", imagen: "leon.png", sonido: "leon.mp3", sonidoNombre: "nombre_leon.mp3" },
+    { nombre: "Antílope", imagen: "antilope.png", sonido: "antilope.mp3", sonidoNombre: "nombre_antilope.mp3" },
+    { nombre: "Avestruz", imagen: "avestruz.png", sonido: "avestruz.mp3", sonidoNombre: "nombre_avestruz.mp3" },
+    { nombre: "Jirafa", imagen: "jirafa.png", sonido: "jirafa.mp3", sonidoNombre: "nombre_jirafa.mp3" },
+    { nombre: "Tucán", imagen: "tucan.png", sonido: "tucan.mp3", sonidoNombre: "nombre_tucan.mp3" },
+    { nombre: "Cebra", imagen: "cebra.png", sonido: "cebra.mp3", sonidoNombre: "nombre_cebra.mp3" }
+    ];
 
 // Función para seleccionar aleatoriamente 3 animalitos no repetidos
 function seleccionarAnimalitosAleatorios() {
@@ -35,7 +39,7 @@ function posicionarAnimalitosYCasas(pantalla, animalitos) {
     // Posicionar animalitos
     animalitos.forEach(function (animalito, index) {
         var animalitoDiv = document.createElement("img");
-        animalitoDiv.src = "imágenes/" + animalito.imagen;
+        animalitoDiv.src = "../media/" + animalito.imagen;
         animalitoDiv.className = "animalito";
         animalitoDiv.draggable = true;
         animalitoDiv.dataset.nombre = animalito.nombre;

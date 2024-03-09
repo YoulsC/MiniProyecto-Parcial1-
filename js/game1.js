@@ -270,6 +270,8 @@ function iniciar() {
     } else {
         
         puntuacion -= 5;
+        var error = new Audio(["../media/sonidos/error.mp3"]);
+        error.play();
         var puntuacionHTML = document.getElementById('puntuacion');
         puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
     }

@@ -5,28 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Juego de Arrastrar y Soltar</title>
 <link rel="stylesheet" href="css/game1.css">
-<style>
-  #cajasoltar1,#cajasoltar2,#cajasoltar3, #cajasoltar4, #cajasoltar5, #cajasoltar6, #cajasoltar7, #cajasoltar8, #cajasoltar9{
-    float: left;
-    width: 500px;
-    height: 500px;
-    margin: 10px;
-    border: 1px solid #999999;
-    background-color: rgb(252, 0, 0);
-   }
-   #cajaimagenes{
-    float: left;
-    width: 500px;
-    height: 500px;
-    margin: 10px;
-    border: 1px solid #999999;
-    background-color: rgb(0, 68, 255);
-   }
-   #cajaimagenes > img{
-    float: right;
-    padding: 5px;
-   }
-</style>
 </head>
 <body>
 
@@ -66,6 +44,7 @@
       <button id="cont3" onclick="gameover3()">TERMINAR</button>
     </div>
 
+    <button onclick="comeback()">Salir</button>
 <script src="js/game1.js"></script>
 </body>
 </html>

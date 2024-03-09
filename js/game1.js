@@ -1,43 +1,59 @@
 var animalitos = [
-    { nombre: "Hipopótamo", imagen: "media/hipopotamo.png", sonido: "../media/sonidos/hipopotamo.mp3", sonidoNombre: "../media/sonidos/nombre_hipopotamo.mp3", habitat: ""},
-    { nombre: "Rinoceronte", imagen: "media/rinoceronte.png", sonido: "../media/sonidos/rinoceronte.mp3", sonidoNombre: "../media/sonidos/nombre_rinoceronte.mp3", habitat: ""},
-    { nombre: "Elefante", imagen: "media/Elefante.png", sonido: "../media/sonidos/elefante.mp3", sonidoNombre: "../media/sonidos/nombre_elefante.mp3", habitat: ""},
-    { nombre: "León", imagen: "media/leon.png", sonido: "../media/sonidos/leon.mp3", sonidoNombre: "../media/sonidos/nombre_leon.mp3", habitat: "" },
-    { nombre: "Antílope", imagen: "media/Antilope.png", sonido: "../media/sonidos/antilope.mp3", sonidoNombre: "../media/sonidos/nombre_antilope.mp3", habitat: "" },
-    { nombre: "Avestruz", imagen: "media/Avestruz.png", sonido: "../media/sonidos/avestruz.mp3", sonidoNombre: "../media/sonidos/nombre_avestruz.mp3", habitat: "" },
-    { nombre: "Jirafa", imagen: "media/Jirafa.png", sonido: "../media/sonidos/jirafa.mp3", sonidoNombre: "../media/sonidos/nombre_jirafa.mp3", habitat: "" },
-    { nombre: "Tucán", imagen: "media/tucan.png", sonido: "../media/sonidos/tucan.mp3", sonidoNombre: "../media/sonidos/nombre_tucan.mp3", habitat: "" },
-    { nombre: "Cebra", imagen: "media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3", habitat: "" },
-    ];
+    { nombre: "Hipopótamo", imagen: "media/hipopotamo.png", sonido: "../media/sonidos/hipopotamo.mp3", sonidoNombre: "../media/sonidos/nombre_hipopotamo.mp3", habitat: "media/HipopotamoFondo.png"},
+    { nombre: "Rinoceronte", imagen: "media/rinoceronte.png", sonido: "../media/sonidos/rinoceronte.mp3", sonidoNombre: "../media/sonidos/nombre_rinoceronte.mp3", habitat: "media/RinoceronteFondo.png"},
+    { nombre: "Elefante", imagen: "media/Elefante.png", sonido: "../media/sonidos/elefante.mp3", sonidoNombre: "../media/sonidos/nombre_elefante.mp3", habitat: "media/ElefanteFondo.png"},
+    { nombre: "León", imagen: "media/leon.png", sonido: "../media/sonidos/leon.mp3", sonidoNombre: "../media/sonidos/nombre_leon.mp3", habitat: "media/LeonFondo.png"},
+    { nombre: "Antílope", imagen: "media/Antilope.png", sonido: "../media/sonidos/antilope.mp3", sonidoNombre: "../media/sonidos/nombre_antilope.mp3", habitat: "media/AntilopeFondo.png"},
+    { nombre: "Avestruz", imagen: "media/Avestruz.png", sonido: "../media/sonidos/avestruz.mp3", sonidoNombre: "../media/sonidos/nombre_avestruz.mp3", habitat: "media/AvestruzFondo.png"},
+    { nombre: "Jirafa", imagen: "media/Jirafa.png", sonido: "../media/sonidos/jirafa.mp3", sonidoNombre: "../media/sonidos/nombre_jirafa.mp3", habitat: "media/JirafaFondo.png"},
+    { nombre: "Tucán", imagen: "media/tucan.png", sonido: "../media/sonidos/tucan.mp3", sonidoNombre: "../media/sonidos/nombre_tucan.mp3", habitat: "media/TucanFondo.png"},
+    { nombre: "Cebra", imagen: "media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3", habitat: "media/CebraFondo.png"},
+];
 
-    var count = 0;
-    var tiempoInicio; // Variable para el tiempo de inicio global
-    var puntuacion = 0; // Variable para la puntuación global
-    function iniciar() {
 
-        tiempoInicio = Date.now(); // Establecer el tiempo de inicio al iniciar el juego
-        iniciarCronometro();
+var count = 0;
+var tiempoInicio; 
+var puntuacion = 0; 
+var alias; 
 
-        var game1 = document.getElementById('game1');
-        game1.style.display = 'block';
+function iniciar() {
 
-        var but1 = document.getElementById('cont1');
-        but1.style.display = 'none';
+    var name = document.getElementById('name');
 
-        var but2 = document.getElementById('cont2');
-        but2.style.display = 'none';
+    tiempoInicio = Date.now(); 
+    iniciarCronometro();
 
-        var game2 = document.getElementById('game2');
-        game2.style.display = 'none';
+    var game1 = document.getElementById('game1');
+    game1.style.display = 'block';
 
-        var game3 = document.getElementById('game3');
-        game3.style.display = 'none';
+    var but1 = document.getElementById('cont1');
+    but1.style.display = 'none';
 
-        var but3 = document.getElementById('cont3');
-        but3.style.display = 'none';
+    var but2 = document.getElementById('cont2');
+    but2.style.display = 'none';
 
-        var puntuacion=0;
-        var alias = localStorage.getItem("alias");
+    var game2 = document.getElementById('game2');
+    game2.style.display = 'none';
+
+    var game3 = document.getElementById('game3');
+    game3.style.display = 'none';
+
+    var but3 = document.getElementById('cont3');
+    but3.style.display = 'none';
+
+    puntuacion = 0; 
+
+
+    var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
+    var datosRecompensa = JSON.parse(datosRecompensaJSON);
+
+  
+    alias = datosRecompensa.alias;
+
+   
+    var aliasHTML = document.getElementById('alias');
+    aliasHTML.innerHTML = `Alias: ${alias}`;
+
         var time = 0;
 
         var array = animalitos;
@@ -69,17 +85,17 @@ var animalitos = [
 
         for (var i = 0; i < 3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 1));
-            seccion.innerHTML = `<p>${array[rand1[i]].nombre}</p><canvas data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p style="display: none;">${array[rand1[i]].nombre}</p><canvas style="background: url(${array[rand1[i]].habitat});" data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" width="500" height="500"></canvas>`;
         }
 
         for (var i = 0; i < 3; i++){
             var seccion = document.getElementById('cajasoltar' + (i + 4));
-            seccion.innerHTML = `<p>${array[rand2[i]].nombre}</p><canvas data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p style="display: none;">${array[rand2[i]].nombre}</p><canvas style="background: url(${array[rand2[i]].habitat});" data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" width="500" height="500"></canvas>`;
         }
 
         for (var i = 0; i <3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 7));
-            seccion.innerHTML = `<p>${array[rand3[i]].nombre}</p><canvas data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p style="display: none;">${array[rand3[i]].nombre}</p><canvas style="background: url(${array[rand3[i]].habitat});" data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" width="500" height="500"></canvas>`;
         }
 
 
@@ -213,14 +229,26 @@ var animalitos = [
         var ctx = canvasDestino.getContext('2d');
         ctx.drawImage(elemento, offsetX, offsetY);
 
-        // Encontrar el objeto animal correspondiente en el array animalitos
+
         var animal = animalitos.find(a => a.nombre === nombreAnimal);
 
-        // Reproducir el sonido del animal
         var sonidoAnimal = new Audio(animal.sonido);
         sonidoAnimal.play();
 
-        puntuacion += 10; // o -= 5 si es incorrecto
+        var sonidoNombreAnimal = new Audio(animal.sonidoNombre);
+
+        setTimeout(function() {
+            sonidoNombreAnimal.play();
+        }, 2000);
+
+        var parrafoAnterior = canvasDestino.previousElementSibling;
+
+
+        if (parrafoAnterior && parrafoAnterior.nodeName === 'P') {
+            parrafoAnterior.style.display = 'block';
+        }
+
+        puntuacion += 10; 
         var puntuacionHTML = document.getElementById('puntuacion');
         puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
 
@@ -237,10 +265,10 @@ var animalitos = [
             but3.style.display = 'block';
         }
 
-        alert(`¡Correcto! ${nombreAnimal} fue colocado en su hábitat correcto.`);
+        
         elemento.style.visibility = 'hidden';
     } else {
-        alert(`Lo siento, debes soltar el ${nombreAnimal} en su hábitat correcto.`);
+        
         puntuacion -= 5;
         var puntuacionHTML = document.getElementById('puntuacion');
         puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
@@ -250,7 +278,7 @@ var animalitos = [
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]]; // intercambio de elementos
+            [array[i], array[j]] = [array[j], array[i]]; 
         }
     }
 
@@ -285,8 +313,125 @@ var animalitos = [
     }
     
     function gameover3() {
-        // Aquí puedes agregar el código necesario para cuando se termine el juego
-        detenerCronometro(); // Detener el cronómetro
+        
+        detenerCronometro();
+
+        
+        var tiempoTranscurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
+        
+    var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
+    var datosRecompensa = JSON.parse(datosRecompensaJSON);
+
+    
+    var alias = datosRecompensa.alias;
+
+
+        var mejorTiempo = tiempoTranscurrido;
+        var puntos = puntuacion;
+
+       
+        guardarDatosRecompensa(alias, mejorTiempo, puntos);
+    }
+
+    function guardarDatosRecompensa(alias, mejorTiempo, puntos) {
+        console.log("Guardando datos de recompensa...");
+    
+        
+        var datosPreviosAliasJSON = localStorage.getItem(alias);
+    
+        if (datosPreviosAliasJSON) {
+            console.log("Datos previos encontrados para el alias " + alias);
+    
+            
+            var datosPreviosAlias = JSON.parse(datosPreviosAliasJSON);
+    
+            
+            if (puntos > datosPreviosAlias.puntos || (puntos === datosPreviosAlias.puntos && mejorTiempo < datosPreviosAlias.mejorTiempo)) {
+                console.log("La puntuación actual es mejor que la puntuación previa o el mejorTiempo previo es menor. Actualizando datos del alias " + alias + "...");
+    
+                
+                var datosAlias = {
+                    alias: alias,
+                    puntos: puntos,
+                    mejorTiempo: mejorTiempo
+                };
+    
+                
+                var datosAliasJSON = JSON.stringify(datosAlias);
+    
+                
+                localStorage.setItem(alias, datosAliasJSON);
+            } else {
+                console.log("La puntuación actual no supera a la puntuación previa o el mejorTiempo previo no es menor. No se realizarán cambios en los datos del alias " + alias + ".");
+            }
+        } else {
+            console.log("No se encontraron datos previos para el alias " + alias + ". Guardando nuevos datos...");
+    
+            
+            var datosAliasNuevo = {
+                alias: alias,
+                puntos: puntos,
+                mejorTiempo: mejorTiempo
+            };
+    
+            
+            var datosAliasNuevoJSON = JSON.stringify(datosAliasNuevo);
+    
+            
+            localStorage.setItem(alias, datosAliasNuevoJSON);
+        }
+    
+        
+        var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
+    
+        if (datosRecompensaJSON) {
+            console.log("Datos previos encontrados para la llave 'datosRecompensa'");
+    
+           
+            var datosRecompensaPrevios = JSON.parse(datosRecompensaJSON);
+    
+            
+            if (puntos > datosRecompensaPrevios.puntos || (puntos === datosRecompensaPrevios.puntos && mejorTiempo < datosRecompensaPrevios.mejorTiempo)) {
+                console.log("La puntuación actual es mejor que la puntuación previa o el mejorTiempo previo es menor. Actualizando datos de 'datosRecompensa'...");
+    
+                
+                var datosRecompensaNuevos = {
+                    alias: alias, 
+                    puntos: puntos,
+                    mejorTiempo: mejorTiempo
+                };
+    
+                
+                var datosRecompensaNuevosJSON = JSON.stringify(datosRecompensaNuevos);
+    
+                
+                localStorage.setItem('datosRecompensa', datosRecompensaNuevosJSON); 
+            } else {
+                console.log("La puntuación actual no supera a la puntuación previa o el mejorTiempo previo no es menor. No se realizarán cambios en los datos de 'datosRecompensa'.");
+            }
+        } else {
+            console.log("No se encontraron datos previos para la llave 'datosRecompensa'. Guardando nuevos datos...");
+    
+            
+            var datosRecompensaNuevo = {
+                alias: alias,
+                puntos: puntos,
+                mejorTiempo: mejorTiempo
+            };
+    
+           
+            var datosRecompensaNuevoJSON = JSON.stringify(datosRecompensaNuevo);
+    
+            
+            localStorage.setItem('datosRecompensa', datosRecompensaNuevoJSON);
+        }
+    
+        window.location.href = "Recompensa.html";
+    }
+    
+
+    function comeback() {
+        window.location.href = "Index.html";
     }
     
     

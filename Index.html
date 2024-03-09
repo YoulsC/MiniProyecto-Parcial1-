@@ -164,8 +164,6 @@
                 <a href="..." onmouseover="opt(1)" onmouseout="resetOpt()" >Jugar</a>
                 <a href="..." onmouseover="opt(2)" onmouseout="resetOpt()" >Leaderboard</a>
                 <a href="..." onmouseover="opt(3)" onmouseout="resetOpt()" >About</a>
-
-                
             </div>
         </div>
        </div>
@@ -193,18 +191,24 @@ resetOpt = () => {
     }
 
     var isImage1 = true;
+    var audio = new Audio('./media/sonidos/IntroMusic.mp3');
+    audio.play(); 
 
-  function changeImage() {
-    var buttonImage = document.getElementById('buttonImage');
-    
-    if (isImage1) {
-      buttonImage.src = './media/Unmute.png';
-    } else {
-      buttonImage.src = './media/mute.png'; 
+    function changeImage() {
+        var buttonImage = document.getElementById('buttonImage');
+        
+        if (isImage1) {
+            buttonImage.src = './media/Unmute.png';
+            audio.pause(); 
+             
+        } else {
+            buttonImage.src = './media/mute.png';
+            audio.play();
+        }
+
+        isImage1 = !isImage1; 
     }
-
-    isImage1 = !isImage1; 
-  }
+  
 </script>
 </body>
 

@@ -29,10 +29,19 @@
             <p><strong>Fecha:</strong> 10 de marzo de 2024</p>
             <p><strong>Ciudad:</strong> Aguascalientes, Aguascalientes, México</p>
         </div>
-        
+
+        <button id="regresarButton">◀ Regresar</button>
     </div>
+
+    
     <img src="media/hipopotamo.png" alt="" class="bottom-left-image">
     <img src="media/tucan.png" alt="" class="top-right-image">
     <img src="media/leon.png" alt="" class="bottom-right-image">
+
+    <script>
+        document.getElementById('regresarButton').addEventListener('click', function() {
+            window.location.href = "index.html";
+        });
+    </script>
 </body>
 </html>

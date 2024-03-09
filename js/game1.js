@@ -10,17 +10,32 @@ var animalitos = [
     { nombre: "Cebra", imagen: "media/cebra.png", sonido: "../media/sonidos/cebra.mp3", sonidoNombre: "../media/sonidos/nombre_cebra.mp3", habitat: "" },
     ];
 
+    var count = 0;
+    var tiempoInicio; // Variable para el tiempo de inicio global
+    var puntuacion = 0; // Variable para la puntuación global
     function iniciar() {
-        count=0;
+
+        tiempoInicio = Date.now(); // Establecer el tiempo de inicio al iniciar el juego
+        iniciarCronometro();
+
+        var game1 = document.getElementById('game1');
+        game1.style.display = 'block';
 
         var but1 = document.getElementById('cont1');
         but1.style.display = 'none';
+
+        var but2 = document.getElementById('cont2');
+        but2.style.display = 'none';
 
         var game2 = document.getElementById('game2');
         game2.style.display = 'none';
 
         var game3 = document.getElementById('game3');
         game3.style.display = 'none';
+
+        var but3 = document.getElementById('cont3');
+        but3.style.display = 'none';
+
         var puntuacion=0;
         var alias = localStorage.getItem("alias");
         var time = 0;
@@ -52,19 +67,19 @@ var animalitos = [
         <img id="img9" data-value="${array[8].nombre}" src="${array[8].imagen}" draggable="true">`;
 
 
-        for (var i = 1; i <= 3; i++) {
+        for (var i = 0; i < 3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 1));
-            seccion.innerHTML = `<p>${array[rand1[i-1]].nombre}</p><canvas data-value="${array[rand1[i-1]].nombre}" id="lienzo${i}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p>${array[rand1[i]].nombre}</p><canvas data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" width="500" height="500"></canvas>`;
         }
 
-        for (var i = 1; i <= 3; i++){
-            var seccion = document.getElementById('cajasoltar' + (i + 1));
-            seccion.innerHTML = `<p>${array[rand2[i-1]].nombre}</p><canvas data-value="${array[rand2[i-1]].nombre}" id="lienzo${i + 3}" width="500" height="500"></canvas>`;
+        for (var i = 0; i < 3; i++){
+            var seccion = document.getElementById('cajasoltar' + (i + 4));
+            seccion.innerHTML = `<p>${array[rand2[i]].nombre}</p><canvas data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" width="500" height="500"></canvas>`;
         }
 
-        for (var i = 1; i <=3; i++) {
-            var seccion = document.getElementById('cajasoltar' + (i + 1));
-            seccion.innerHTML = `<p>${array[rand3[i-1]].nombre}</p><canvas data-value="${array[rand3[i-1]].nombre}" id="lienzo${i + 6}" width="500" height="500"></canvas>`;
+        for (var i = 0; i <3; i++) {
+            var seccion = document.getElementById('cajasoltar' + (i + 7));
+            seccion.innerHTML = `<p>${array[rand3[i]].nombre}</p><canvas data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" width="500" height="500"></canvas>`;
         }
 
 
@@ -149,6 +164,11 @@ var animalitos = [
         soltar9.addEventListener('dragover', eventoOver, false);
         soltar9.addEventListener('drop', soltado, false);
 
+        if (tiempoInicio === undefined) {
+            tiempoInicio = Date.now();
+            iniciarCronometro();
+        }
+
     }
     
     function eventoEnter(e) {
@@ -172,125 +192,60 @@ var animalitos = [
     }
     
     function soltado(e) {
-        e.preventDefault();
-        var id = e.dataTransfer.getData('Text');
-        var elemento = document.getElementById(id);
-        var nombreAnimal = elemento.getAttribute('data-value');
-        var punt = document.getElementById('puntuacion');
-    
-        var posx1 = e.pageX - soltar1.offsetLeft;
-        var posy1 = e.pageY - soltar1.offsetTop;
-        var posx2 = e.pageX - soltar2.offsetLeft;
-        var posy2 = e.pageY - soltar2.offsetTop;
-        var posx3 = e.pageX - soltar3.offsetLeft;
-        var posy3 = e.pageY - soltar3.offsetTop;
-        var posx4 = e.pageX - soltar4.offsetLeft;
-        var posy4 = e.pageY - soltar4.offsetTop;
-        var posx5 = e.pageX - soltar5.offsetLeft;
-        var posy5 = e.pageY - soltar5.offsetTop;
-        var posx6 = e.pageX - soltar6.offsetLeft;
-        var posy6 = e.pageY - soltar6.offsetTop;
-        var posx7 = e.pageX - soltar7.offsetLeft;
-        var posy7 = e.pageY - soltar7.offsetTop;
-        var posx8 = e.pageX - soltar8.offsetLeft;
-        var posy8 = e.pageY - soltar8.offsetTop;
-        var posx9 = e.pageX - soltar9.offsetLeft;
-        var posy9 = e.pageY - soltar9.offsetTop;
+    e.preventDefault();
+    var id = e.dataTransfer.getData('Text');
+    var elemento = document.getElementById(id);
+    var nombreAnimal = elemento.getAttribute('data-value');
+    var punt = document.getElementById('puntuacion');
 
-        
+    var offsetX = e.offsetX;
+    var offsetY = e.offsetY;
 
-        var canvasValue1 = document.getElementById('lienzo1').getAttribute('data-value');
-        var canvasValue2 = document.getElementById('lienzo2').getAttribute('data-value');
-        var canvasValue3 = document.getElementById('lienzo3').getAttribute('data-value');
-        var canvasValue4 = document.getElementById('lienzo4').getAttribute('data-value');
-        var canvasValue5 = document.getElementById('lienzo5').getAttribute('data-value');
-        var canvasValue6 = document.getElementById('lienzo6').getAttribute('data-value');
-        var canvasValue7 = document.getElementById('lienzo7').getAttribute('data-value');
-        var canvasValue8 = document.getElementById('lienzo8').getAttribute('data-value');
-        var canvasValue9 = document.getElementById('lienzo9').getAttribute('data-value');
+    var canvasDestino;
+    var canvasValorDestino;
 
-    
-        var canvasDestino;
-        var canvasValorDestino;
-        var posX, posY;
-        var animal;
-    
-        // Determinar el canvas de destino, su valor data-value y las coordenadas correspondientes
-        if (posx1 >= 0 && posx1 <= soltar1.width && posy1 >= 0 && posy1 <= soltar1.height) {
-            canvasDestino = lienzo1;
-            canvasValorDestino = canvasValue1;
-            posX = posx1;
-            posY = posy1;
-        } else if (posx2 >= 0 && posx2 <= soltar2.width && posy2 >= 0 && posy2 <= soltar2.height) {
-            canvasDestino = lienzo2;
-            canvasValorDestino = canvasValue2;
-            posX = posx2;
-            posY = posy2;
-        } else if (posx3 >= 0 && posx3 <= soltar3.width && posy3 >= 0 && posy3 <= soltar3.height) {
-            canvasDestino = lienzo3;
-            canvasValorDestino = canvasValue3;
-            posX = posx3;
-            posY = posy3;
-        } else if (posx4 >= 0 && posx4 <= soltar4.width && posy4 >= 0 && posy4 <= soltar4.height) {
-            canvasDestino = lienzo4;
-            canvasValorDestino = canvasValue4;
-            posX = posx4;
-            posY = posy4;
-        } else if (posx5 >= 0 && posx5 <= soltar5.width && posy5 >= 0 && posy5 <= soltar5.height) {
-            canvasDestino = lienzo5;
-            canvasValorDestino = canvasValue5;
-            posX = posx5;
-            posY = posy5;
-        } else if (posx6 >= 0 && posx6 <= soltar6.width && posy6 >= 0 && posy6 <= soltar6.height) {
-            canvasDestino = lienzo6;
-            canvasValorDestino = canvasValue6;
-            posX = posx6;
-            posY = posy6;
-        } else if (posx7 >= 0 && posx7 <= soltar7.width && posy7 >= 0 && posy7 <= soltar7.height) {
-            canvasDestino = lienzo7;
-            canvasValorDestino = canvasValue7;
-            posX = posx7;
-            posY = posy7;
-        } else if (posx8 >= 0 && posx8 <= soltar8.width && posy8 >= 0 && posy8 <= soltar8.height) {
-            canvasDestino = lienzo8;
-            canvasValorDestino = canvasValue8;
-            posX = posx8;
-            posY = posy8;
-        } else if (posx9 >= 0 && posx9 <= soltar9.width && posy9 >= 0 && posy9 <= soltar9.height) {
-            canvasDestino = lienzo9;
-            canvasValorDestino = canvasValue9;
-            posX = posx9;
-            posY = posy9;
-        }
-        
-    
-        // Comparar el nombre del animal con el valor data-value del canvas de destino
-        if (nombreAnimal === canvasValorDestino) {
-            canvasDestino.drawImage(elemento, posX, posY);
-            
-            // Encontrar el objeto animal correspondiente en el array animalitos
-            animal = animalitos.find(a => a.nombre === nombreAnimal);
-            
-            // Reproducir el sonido del animal
-            var sonidoAnimal = new Audio(animal.sonido);
-            sonidoAnimal.play();
-
-            puntuacion+=10;
-
-            count++;
-
-            if(count==3){
-                var but1 = document.getElementById('cont1');
-                but1.style.display = 'block';
-            }
-            
-            alert(`¡Correcto! ${nombreAnimal} fue colocado en su hábitat correcto.`);
-            elemento.style.visibility = 'hidden';
-        } else {
-            alert(`Lo siento, debes soltar el ${nombreAnimal} en su hábitat correcto.`);
-            puntuacion-=5;
-        }
+    if (e.target.nodeName === 'CANVAS') {
+        canvasDestino = e.target;
+        canvasValorDestino = canvasDestino.getAttribute('data-value');
     }
+
+    if (nombreAnimal === canvasValorDestino) {
+        var ctx = canvasDestino.getContext('2d');
+        ctx.drawImage(elemento, offsetX, offsetY);
+
+        // Encontrar el objeto animal correspondiente en el array animalitos
+        var animal = animalitos.find(a => a.nombre === nombreAnimal);
+
+        // Reproducir el sonido del animal
+        var sonidoAnimal = new Audio(animal.sonido);
+        sonidoAnimal.play();
+
+        puntuacion += 10; // o -= 5 si es incorrecto
+        var puntuacionHTML = document.getElementById('puntuacion');
+        puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
+
+        count++;
+
+        if (count == 3) {
+            var but1 = document.getElementById('cont1');
+            but1.style.display = 'block';
+        } else if (count == 6) {
+            var but2 = document.getElementById('cont2');
+            but2.style.display = 'block';
+        } else if (count == 9) {
+            var but3 = document.getElementById('cont3');
+            but3.style.display = 'block';
+        }
+
+        alert(`¡Correcto! ${nombreAnimal} fue colocado en su hábitat correcto.`);
+        elemento.style.visibility = 'hidden';
+    } else {
+        alert(`Lo siento, debes soltar el ${nombreAnimal} en su hábitat correcto.`);
+        puntuacion -= 5;
+        var puntuacionHTML = document.getElementById('puntuacion');
+        puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
+    }
+}
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -299,13 +254,41 @@ var animalitos = [
         }
     }
 
-    function gameover1(){
+    function iniciarCronometro() {
+        intervaloCronometro = setInterval(actualizarCronometro, 1000);
+    }
+    
+    function detenerCronometro() {
+        clearInterval(intervaloCronometro);
+    }
+    
+    function actualizarCronometro() {
+        var tiempoTranscurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
+        var tiempoHTML = document.getElementById('time');
+        tiempoHTML.innerHTML = `Tiempo transcurrido: ${tiempoTranscurrido} segundos`;
+    }
+    
+    function gameover1() {
         var game1 = document.getElementById('game1');
         game1.style.display = 'none';
-
+    
         var game2 = document.getElementById('game2');
         game2.style.display = 'block';
     }
+    
+    function gameover2() {
+        var game2 = document.getElementById('game2');
+        game2.style.display = 'none';
+    
+        var game3 = document.getElementById('game3');
+        game3.style.display = 'block';
+    }
+    
+    function gameover3() {
+        // Aquí puedes agregar el código necesario para cuando se termine el juego
+        detenerCronometro(); // Detener el cronómetro
+    }
+    
     
     window.addEventListener('load', iniciar, false);
     

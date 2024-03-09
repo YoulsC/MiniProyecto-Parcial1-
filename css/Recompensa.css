@@ -1,0 +1,60 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url(../media/BackGround.png); 
+}
+
+.container {
+    width: 80%;
+    max-width: 800px; /* Ajustado el ancho máximo */
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra */
+    text-align: center;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ffa500; /* Naranja */
+    color: #fff;
+    border: 2px solid #000; /* Borde negro */
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff8c00; /* Naranja oscuro */
+}
+
+h1 {
+    color: #0fa127; /* Naranja */
+    font-size: 60px; /* Tamaño de fuente aumentado */
+    margin-top: -100px; /* Espaciado inferior */
+}
+
+p {
+    color: #ff8c00;
+    font-size: 25px;
+    text-shadow: -1px -1px 0 #000,  
+                  1px -1px 0 #000,
+                 -1px  1px 0 #000,
+                  1px  1px 0 #000; /* Efecto de borde */
+}
+
+h6 {
+    font-size: 20px;
+    margin-bottom: 75px; /* Espaciado inferior */
+}

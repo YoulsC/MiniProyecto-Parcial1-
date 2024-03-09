@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button onclick="gameover3()">Click me</button>
+
+    <script>
+ function gameover3() {
+       // Ejemplo de uso:
+// Supongamos que tienes estas variables:
+var alias = "usuario123";
+var tiempo = "30 minutos";
+var puntuacion = 100;
+
+// Llamamos a la función para guardar los datos
+guardarDatosRecompensa(alias, tiempo, puntuacion);
+ }
+
+        function guardarDatosRecompensa(alias, tiempo, puntuacion) {
+    // Crear un objeto para almacenar los datos
+    var datos = {
+        alias: alias,
+        tiempo: tiempo,
+        puntuacion: puntuacion
+    };
+
+    // Convertir el objeto a JSON
+    var datosJSON = JSON.stringify(datos);
+
+    // Guardar en el almacenamiento local
+    localStorage.setItem('datosRecompensa', datosJSON);
+    window.location.href = "Recompensa.html";
+}
+
+
+    </script>
+</body>
+</html>

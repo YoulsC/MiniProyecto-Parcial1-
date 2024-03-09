@@ -10,34 +10,114 @@
     <button onclick="gameover3()">Click me</button>
 
     <script>
- function gameover3() {
-       // Ejemplo de uso:
-// Supongamos que tienes estas variables:
-var alias = "usuario123";
-var tiempo = "30 minutos";
-var puntuacion = 100;
+        function gameover3() {
+            // Ejemplo de uso:
+            // Supongamos que tienes estas variables:
+            var alias = "Ray";
+            var mejorTiempo = 48;
+            var puntos = 70;
 
-// Llamamos a la función para guardar los datos
-guardarDatosRecompensa(alias, tiempo, puntuacion);
- }
+            // Llamamos a la función para guardar los datos
+            guardarDatosRecompensa(alias, mejorTiempo, puntos);
+        }
 
-        function guardarDatosRecompensa(alias, tiempo, puntuacion) {
-    // Crear un objeto para almacenar los datos
-    var datos = {
-        alias: alias,
-        tiempo: tiempo,
-        puntuacion: puntuacion
-    };
+        function guardarDatosRecompensa(alias, mejorTiempo, puntos) {
+            console.log("Guardando datos de recompensa...");
 
-    // Convertir el objeto a JSON
-    var datosJSON = JSON.stringify(datos);
+            // Recuperar los datos previos del alias del almacenamiento local
+            var datosPreviosAliasJSON = localStorage.getItem(alias);
 
-    // Guardar en el almacenamiento local
-    localStorage.setItem('datosRecompensa', datosJSON);
-    window.location.href = "Recompensa.html";
-}
+            if (datosPreviosAliasJSON) {
+                console.log("Datos previos encontrados para el alias " + alias);
 
+                // Convertir el valor JSON en un objeto
+                var datosPreviosAlias = JSON.parse(datosPreviosAliasJSON);
 
+                // Comprobar si la puntuación actual es mayor que la puntuación previa o si el mejorTiempo actual es menor que el mejorTiempo previo
+                if (puntos > datosPreviosAlias.puntos || (puntos === datosPreviosAlias.puntos && mejorTiempo < datosPreviosAlias.mejorTiempo)) {
+                    console.log("La puntuación actual es mejor que la puntuación previa o el mejorTiempo previo es menor. Actualizando datos del alias " + alias + "...");
+
+                    // Actualizar los datos previos del alias
+                    var datosAlias = {
+                        alias: alias,
+                        puntos: puntos,
+                        mejorTiempo: mejorTiempo
+                    };
+
+                    // Convertir el objeto a JSON
+                    var datosAliasJSON = JSON.stringify(datosAlias);
+
+                    // Guardar los nuevos datos en el almacenamiento local
+                    localStorage.setItem(alias, datosAliasJSON);
+                } else {
+                    console.log("La puntuación actual no supera a la puntuación previa o el mejorTiempo previo no es menor. No se realizarán cambios en los datos del alias " + alias + ".");
+                }
+            } else {
+                console.log("No se encontraron datos previos para el alias " + alias + ". Guardando nuevos datos...");
+
+                // Si no hay datos previos para este alias, guardar los nuevos datos
+                var datosAliasNuevo = {
+                    alias: alias,
+                    puntos: puntos,
+                    mejorTiempo: mejorTiempo
+                };
+
+                // Convertir el objeto a JSON
+                var datosAliasNuevoJSON = JSON.stringify(datosAliasNuevo);
+
+                // Guardar los nuevos datos en el almacenamiento local
+                localStorage.setItem(alias, datosAliasNuevoJSON);
+            }
+
+            // Recuperar los datos previos de la llave "datosRecompensa" del almacenamiento local
+            var datosRecompensaJSON = localStorage.getItem('datosRecompensa');
+
+            if (datosRecompensaJSON) {
+                console.log("Datos previos encontrados para la llave 'datosRecompensa'");
+
+                // Convertir el valor JSON en un objeto
+                var datosRecompensaPrevios = JSON.parse(datosRecompensaJSON);
+
+                // Comprobar si la puntuación actual es mayor que la puntuación previa o si el mejorTiempo actual es menor que el mejorTiempo previo
+                if (puntos > datosRecompensaPrevios.puntos || (puntos === datosRecompensaPrevios.puntos && mejorTiempo < datosRecompensaPrevios.mejorTiempo)) {
+                    console.log("La puntuación actual es mejor que la puntuación previa o el mejorTiempo previo es menor. Actualizando datos de 'datosRecompensa'...");
+
+                    // Actualizar los datos previos de 'datosRecompensa' con los nuevos datos del jugador
+                    var datosRecompensaNuevos = {
+                        alias: alias, // Usa el mismo alias del jugador
+                        puntos: puntos,
+                        mejorTiempo: mejorTiempo
+                    };
+
+                    // Convertir el objeto a JSON
+                    var datosRecompensaNuevosJSON = JSON.stringify(datosRecompensaNuevos);
+
+                    // Guardar los nuevos datos en el almacenamiento local
+                    localStorage.setItem(alias, datosRecompensaNuevosJSON); // Usa el alias como clave en localStorage
+
+                } else {
+                    console.log("La puntuación actual no supera a la puntuación previa o el mejorTiempo previo no es menor. No se realizarán cambios en los datos de 'datosRecompensa'.");
+                }
+            } else {
+                console.log("No se encontraron datos previos para la llave 'datosRecompensa'. Guardando nuevos datos...");
+
+                // Si no hay datos previos para esta llave, guardar los nuevos datos
+                var datosRecompensaNuevo = {
+                    alias: alias,
+                    puntos: puntos,
+                    mejorTiempo: mejorTiempo
+                };
+
+                // Convertir el objeto a JSON
+                var datosRecompensaNuevoJSON = JSON.stringify(datosRecompensaNuevo);
+
+                // Guardar los nuevos datos en el almacenamiento local
+                localStorage.setItem('datosRecompensa', datosRecompensaNuevoJSON);
+            }
+
+            console.log("Redirigiendo a Recompensa.html...");
+            window.location.href = "Recompensa.html";
+        }
     </script>
 </body>
 </html>

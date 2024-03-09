@@ -5,21 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alias y Puntos</title>
 <link rel="stylesheet" href="css/alias.css">
+<link rel="stylesheet" href="css/mainStyle.css">
 </head>
 <body>
-    <div class="container" id="alias-screen">
-        <label for="alias-input">Ingresa tu alias:</label>
-        <input type="text" id="alias-input">
-        <button onclick="guardarAlias()">Guardar</button>
-    </div>
+    <div class="background">
 
-    <div class="container" id="puntos-screen" style="display: none;">
-        <p id="alias-info"></p>
-        <p id="puntos-info"></p>
-        <p id="mejor-tiempo-info"></p>
-        <button onclick="volverAJugar()">Volver a jugar</button>
-        <button onclick="volver()">Regresar</button>
+        <div class="Lights">
+            <img id="Light1" src="./media/LightPoints1.png" alt="">
+            <img id="Light2" src="./media/Light1.png" alt="">
+            <img id="Light3" src="./media/LightPoints2.png" alt="">
+        </div>
+
+        <div class="container" id="alias-screen">
+            <label for="alias-input">Ingresa tu alias:</label>
+            <input type="text" id="alias-input">
+            <button onclick="guardarAlias()"><img src="./media/play.png" alt=""></button>
+        </div>
+        
+    
+        <div class="container" id="puntos-screen" style="display: none;">
+            <p id="alias-info"></p>
+            <p id="puntos-info"></p>
+            <p id="mejor-tiempo-info"></p>
+            <button onclick="volverAJugar()">Volver a jugar</button>
+            <button onclick="volver()">Regresar</button>
+        </div>
+        
+
     </div>
+    
 
     <script src="js/alias.js"></script>
 </body>

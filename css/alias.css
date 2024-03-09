@@ -8,10 +8,12 @@ body {
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.8);
+    background-image: url("../media/Tablon.png");
+    background-size: 100% 96%;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    z-index: -100;
 }
 
 label {
@@ -25,22 +27,26 @@ input[type="text"] {
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
+  
 }
 
 button {
-    padding: 10px 20px;
+    margin: 10px;
     font-size: 16px;
     border-radius: 5px;
     border: none;
-    background-color: #4CAF50;
-    color: white;
     cursor: pointer;
+    
 }
 
-button:hover {
-    background-color: #45a049;
+button img {
+    position: absolute;
+    width: 50px;
+    height: auto;
+    margin-left: -1%;
+    margin-top: -30px;
+    
 }
-
 #puntos-screen {
     display: none;
 }

@@ -209,74 +209,80 @@ function iniciar() {
     }
     
     function soltado(e) {
-    e.preventDefault();
-    var id = e.dataTransfer.getData('Text');
-    var elemento = document.getElementById(id);
-    var nombreAnimal = elemento.getAttribute('data-value');
-    var punt = document.getElementById('puntuacion');
+        e.preventDefault();
+        var id = e.dataTransfer.getData('Text');
+        var elemento = document.getElementById(id); // La imagen arrastrada
+        var nombreAnimal = elemento.getAttribute('data-value');
+        var punt = document.getElementById('puntuacion');
+    
+        if (e.target.nodeName === 'CANVAS') {
+            var canvasDestino = e.target;
+            var canvasValorDestino = canvasDestino.getAttribute('data-value');
+    
+            if (nombreAnimal === canvasValorDestino) {
+                var ctx = canvasDestino.getContext('2d');
+    
+                // Obtener el tamaño del canvas
+                var canvasWidth = canvasDestino.width;
+                var canvasHeight = canvasDestino.height;
+    
+                // Definir el nuevo tamaño de la imagen
+                var newWidth = 100; // Cambia este valor al tamaño deseado
+                var newHeight = 100; // Cambia este valor al tamaño deseado
+    
+                // Calcular la posición para dibujar la imagen en el centro
+                var x = (canvasWidth - newWidth) / 2;
+                var y = (canvasHeight - newHeight) / 2;
+    
+                // Dibujar la imagen en el centro del canvas con el nuevo tamaño
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+                ctx.drawImage(elemento, x, y, newWidth, newHeight);
 
-    var offsetX = e.offsetX;
-    var offsetY = e.offsetY;
-
-    var canvasDestino;
-    var canvasValorDestino;
-
-    if (e.target.nodeName === 'CANVAS') {
-        canvasDestino = e.target;
-        canvasValorDestino = canvasDestino.getAttribute('data-value');
-    }
-
-    if (nombreAnimal === canvasValorDestino) {
-        var ctx = canvasDestino.getContext('2d');
-        ctx.drawImage(elemento, offsetX, offsetY);
-
-
-        var animal = animalitos.find(a => a.nombre === nombreAnimal);
-
-        var sonidoAnimal = new Audio(animal.sonido);
-        sonidoAnimal.play();
-
-        var sonidoNombreAnimal = new Audio(animal.sonidoNombre);
-
-        setTimeout(function() {
-            sonidoNombreAnimal.play();
-        }, 2000);
-
-        var parrafoAnterior = canvasDestino.previousElementSibling;
-
-
-        if (parrafoAnterior && parrafoAnterior.nodeName === 'P') {
-            parrafoAnterior.style.display = 'block';
+                var parrafoAnterior = canvasDestino.previousElementSibling;
+                if (parrafoAnterior && parrafoAnterior.nodeName === 'P') {
+                    parrafoAnterior.style.display = 'block';
+                }
+    
+                // Encuentra el objeto del animal y reproduce los sonidos
+                var animal = animalitos.find(a => a.nombre === nombreAnimal);
+                var sonidoAnimal = new Audio(animal.sonido);
+                sonidoAnimal.play();
+                var sonidoNombreAnimal = new Audio(animal.sonidoNombre);
+                setTimeout(function() {
+                    sonidoNombreAnimal.play();
+                }, 2000);
+    
+                // Actualiza la puntuación
+                puntuacion += 10;
+                var puntuacionHTML = document.getElementById('puntuacion');
+                puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
+    
+                // Actualiza el conteo de aciertos y muestra los botones correspondientes
+                count++;
+                if (count == 3) {
+                    var but1 = document.getElementById('cont1');
+                    but1.style.display = 'block';
+                } else if (count == 6) {
+                    var but2 = document.getElementById('cont2');
+                    but2.style.display = 'block';
+                } else if (count == 9) {
+                    var but3 = document.getElementById('cont3');
+                    but3.style.display = 'block';
+                }
+    
+                elemento.style.visibility = 'hidden';
+            } else {
+                // Procesa el error si el animal no coincide
+                puntuacion -= 5;
+                var error = new Audio("../media/sonidos/error.mp3");
+                error.play();
+                var puntuacionHTML = document.getElementById('puntuacion');
+                puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
+            }
         }
-
-        puntuacion += 10; 
-        var puntuacionHTML = document.getElementById('puntuacion');
-        puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
-
-        count++;
-
-        if (count == 3) {
-            var but1 = document.getElementById('cont1');
-            but1.style.display = 'block';
-        } else if (count == 6) {
-            var but2 = document.getElementById('cont2');
-            but2.style.display = 'block';
-        } else if (count == 9) {
-            var but3 = document.getElementById('cont3');
-            but3.style.display = 'block';
-        }
-
-        
-        elemento.style.visibility = 'hidden';
-    } else {
-        
-        puntuacion -= 5;
-        var error = new Audio(["../media/sonidos/error.mp3"]);
-        error.play();
-        var puntuacionHTML = document.getElementById('puntuacion');
-        puntuacionHTML.innerHTML = `Puntuación: ${puntuacion}`;
     }
-}
+    
+    
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {

@@ -52,7 +52,7 @@ function iniciar() {
 
    
     var aliasHTML = document.getElementById('alias');
-    aliasHTML.innerHTML = `Alias: ${alias}`;
+    aliasHTML.innerHTML = ` ${alias}`;
 
         var time = 0;
 
@@ -85,17 +85,18 @@ function iniciar() {
 
         for (var i = 0; i < 3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 1));
-            seccion.innerHTML = `<p style="display: none;">${array[rand1[i]].nombre}</p><canvas style="background: url(${array[rand1[i]].habitat});" data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p id="names" style="display: none;">${array[rand1[i]].nombre}</p>
+                                    <canvas class="canva" style="background-image: url(${array[rand1[i]].habitat});" data-value="${array[rand1[i]].nombre}" id="lienzo${i+1}" ></canvas>`;
         }
 
         for (var i = 0; i < 3; i++){
             var seccion = document.getElementById('cajasoltar' + (i + 4));
-            seccion.innerHTML = `<p style="display: none;">${array[rand2[i]].nombre}</p><canvas style="background: url(${array[rand2[i]].habitat});" data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p id="names" style="display: none;">${array[rand2[i]].nombre}</p><canvas class="canva" style="background-image: url(${array[rand2[i]].habitat});" data-value="${array[rand2[i]].nombre}" id="lienzo${i + 4}" ></canvas>`;
         }
 
         for (var i = 0; i <3; i++) {
             var seccion = document.getElementById('cajasoltar' + (i + 7));
-            seccion.innerHTML = `<p style="display: none;">${array[rand3[i]].nombre}</p><canvas style="background: url(${array[rand3[i]].habitat});" data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" width="500" height="500"></canvas>`;
+            seccion.innerHTML = `<p id="names" style="display: none;">${array[rand3[i]].nombre}</p><canvas class="canva" style="background-image: url(${array[rand3[i]].habitat});" data-value="${array[rand3[i]].nombre}" id="lienzo${i + 7}" ></canvas>`;
         }
 
 
@@ -295,7 +296,7 @@ function iniciar() {
     function actualizarCronometro() {
         var tiempoTranscurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
         var tiempoHTML = document.getElementById('time');
-        tiempoHTML.innerHTML = `Tiempo transcurrido: ${tiempoTranscurrido} segundos`;
+        tiempoHTML.innerHTML = `Tiempo: ${tiempoTranscurrido} seg`;
     }
     
     function gameover1() {
